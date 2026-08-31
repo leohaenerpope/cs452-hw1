@@ -166,6 +166,109 @@ int main() {
   // }
   // printf("\n");
 
+  // REM TESTING -------------------------------------------------
+
+  // // head rem - 3 element - HeadFirstPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_head_rem(q, "HeadFirstPut");
+
+  // // head rem - 3 element - HeadSecondPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_head_rem(q, "HeadSecondPut");
+
+  // // head rem - 3 element - HeadThirdPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_head_rem(q, "HeadThirdPut");
+
+  // // tail rem - 3 element - HeadFirstPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadFirstPut");
+
+  // // tail rem - 3 element - HeadSecondPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadSecondPut");
+
+  // // tail rem - 3 element - HeadThirdPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadThirdPut");
+
+  // // tail rem - 3 element - HeadThirdPut, HeadFirstPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadFirstPut");
+
+  // // tail rem - 3 element - HeadThirdPut, HeadFirstPut, HeadSecondPut
+  // deq_head_put(q, "HeadFirstPut");
+  // deq_head_put(q, "HeadSecondPut");
+  // deq_head_put(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadThirdPut");
+  // deq_tail_rem(q, "HeadFirstPut");
+  // deq_tail_rem(q, "HeadSecondPut");
+
+  // // head rem - duplicates - should now be lfl
+  // deq_tail_put(q, "f");
+  // deq_tail_put(q, "l");
+  // deq_tail_put(q, "f");
+  // deq_tail_put(q, "l");
+  // deq_head_rem(q, "f");
+
+  // // tail rem - duplicates - should now be fll
+  // deq_tail_put(q, "f");
+  // deq_tail_put(q, "l");
+  // deq_tail_put(q, "f");
+  // deq_tail_put(q, "l");
+  // deq_tail_rem(q, "f");
+
+  // // tail rem - nothing - size 0
+  // Data d = deq_tail_rem(q, "f");
+  // if (d == 0) {
+  //   printf("Returned 0, due to not being able to remove anything.");
+  // }
+  // printf("\n");
+
+  // // tail rem - nothing - size 1
+  // deq_tail_put(q, "a");
+  // Data d = deq_tail_rem(q, "f");
+  // if (d == 0) {
+  //   printf("Returned 0, due to not being able to remove anything.");
+  // }
+  // printf("\n");
+
+  // // bigger test - should be zyyyxxa at first - then turned into zyyyxx
+  // deq_tail_put(q, "z");
+  // deq_tail_put(q, "x");
+  // deq_head_put(q, "y");
+  // deq_head_put(q, "y");
+  // deq_head_put(q, "y");
+  // deq_head_put(q, "z");
+  // deq_tail_put(q, "x");
+  // deq_tail_put(q, "a");
+  // printf(deq_head_ith(q, 2)); // print y
+  // printf(deq_tail_ith(q, 2)); // print x
+  // printf("\n");
+  // deq_head_rem(q, "a");
+  // deq_tail_rem(q, "z");
+
+
+
+
+
+
+
   char *s=deq_str(q,0);
   printf("%s\n",s);
   free(s);

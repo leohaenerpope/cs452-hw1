@@ -95,7 +95,56 @@ static Data get(Rep r, End e)         {
   return d; 
 }
 static Data rem(Rep r, End e, Data d) {
-  
+  if (r->len == 0){ // make sure length is greater than 0
+    return 0;
+  }
+  if (e == Head) {              // handle head traversal - this operation is the exact same as Tail traversal, just different orders
+    for (Node n=r->ht[Head]; n; n=n->np[Tail]){
+      if (n->data == d){
+        if (n->np[Head] && n->np[Tail]) { // middle
+          n->np[Head]->np[Tail] = n->np[Tail];
+          n->np[Tail]->np[Head] = n->np[Head];
+        } else if (n->np[Head]) { // at tail
+          r->ht[Tail] = n->np[Head];
+          n->np[Head]->np[Tail] = NULL;
+        } else if (n->np[Tail]) { // at head
+          r->ht[Head] = n->np[Tail];
+          n->np[Tail]->np[Head] = NULL;
+        } else {                // single element
+          r->ht[Head] = NULL;
+          r->ht[Tail] = NULL;
+        }
+        n->np[Head] = NULL;     // finally free n
+        n->np[Tail] = NULL;
+        free(n);
+        r->len--;
+        return d;
+      }
+    }
+  } else {                      // handle tail traversal
+    for (Node n=r->ht[Tail]; n; n=n->np[Head]){
+      if (n->data == d){
+        if (n->np[Head] && n->np[Tail]) { // in middle
+          n->np[Head]->np[Tail] = n->np[Tail];
+          n->np[Tail]->np[Head] = n->np[Head];
+        } else if (n->np[Head]) { // at tail
+          r->ht[Tail] = n->np[Head];
+          n->np[Head]->np[Tail] = NULL;
+        } else if (n->np[Tail]) { // at head
+          r->ht[Head] = n->np[Tail];
+          n->np[Tail]->np[Head] = NULL;
+        } else {                // single element
+          r->ht[Head] = NULL;
+          r->ht[Tail] = NULL;
+        }
+        n->np[Head] = NULL;
+        n->np[Tail] = NULL;
+        free(n);
+        r->len--;
+        return d;
+      }
+    }
+  }
   return 0;
 }
 

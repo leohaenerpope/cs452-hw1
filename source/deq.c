@@ -46,6 +46,25 @@ static void put(Rep r, End e, Data d) {
   r->len++;
 }
 static Data ith(Rep r, End e, int i)  {
+  if (r->len == 0 || i >= r->len || i < 0) { // check some base cases (0 length, i out of bounds)
+    return 0;
+  }
+  int counter = 0;
+  if (e == Head) {              // handle starting from head for ith element
+    for (Node n=r->ht[Head]; n; n=n->np[Tail]) {
+      if (counter == i) {
+        return n->data;
+      }
+      counter++;
+    }
+  } else {                      // handle starting from tail for ith elemetn
+    for (Node n=r->ht[Tail]; n; n=n->np[Head]) {
+      if (counter == i) {
+        return n->data;
+      }
+      counter++;
+    }
+  }
   return 0;
 }
 static Data get(Rep r, End e)         {
@@ -75,7 +94,10 @@ static Data get(Rep r, End e)         {
   r->len--;
   return d; 
 }
-static Data rem(Rep r, End e, Data d) { return 0; }
+static Data rem(Rep r, End e, Data d) {
+  
+  return 0;
+}
 
 extern Deq deq_new() {
   Rep r=(Rep)malloc(sizeof(*r));

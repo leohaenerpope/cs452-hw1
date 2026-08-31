@@ -37,7 +37,7 @@ static void put(Rep r, End e, Data d) {
     n->np[Tail] = r->ht[Head];
     r->ht[Head]->np[Head] = n;
     r->ht[Head] = n;
-  } else if (e == Tail) {       // putting at tail
+  } else {                      // putting at tail
     n->np[Tail] = NULL;
     n->np[Head] = r->ht[Tail];
     r->ht[Tail]->np[Tail] = n;
@@ -46,10 +46,35 @@ static void put(Rep r, End e, Data d) {
   r->len++;
 }
 static Data ith(Rep r, End e, int i)  {
-  
-  return 0; 
+  return 0;
 }
-static Data get(Rep r, End e)         { return 0; }
+static Data get(Rep r, End e)         {
+  if (r->len == 0){             // handling empty deq, return 0
+    return 0;
+  }
+  Data d;
+  if (r->len == 1) {            // length 1 deq, handle making the deq empty
+    Node n = r->ht[Head];
+    d = n->data;
+    r->ht[Head] = NULL;
+    r->ht[Tail] = NULL;
+    free(n);
+  } else if (e == Head) {       // handling getting at head
+    Node n = r->ht[Head];
+    d = n->data;
+    r->ht[Head] = n->np[Tail];
+    r->ht[Head]->np[Head] = NULL;
+    free(n);
+  } else {                      // handling getting at tail
+    Node n = r->ht[Tail];
+    d = n->data;
+    r->ht[Tail] = n->np[Head];
+    r->ht[Tail]->np[Tail] = NULL;
+    free(n);
+  }
+  r->len--;
+  return d; 
+}
 static Data rem(Rep r, End e, Data d) { return 0; }
 
 extern Deq deq_new() {

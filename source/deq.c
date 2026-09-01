@@ -98,51 +98,40 @@ static Data rem(Rep r, End e, Data d) {
   if (r->len == 0){ // make sure length is greater than 0
     return 0;
   }
-  if (e == Head) {              // handle head traversal - this operation is the exact same as Tail traversal, just different orders
-    for (Node n=r->ht[Head]; n; n=n->np[Tail]){
-      if (n->data == d){
-        if (n->np[Head] && n->np[Tail]) { // middle
-          n->np[Head]->np[Tail] = n->np[Tail];
-          n->np[Tail]->np[Head] = n->np[Head];
-        } else if (n->np[Head]) { // at tail
-          r->ht[Tail] = n->np[Head];
-          n->np[Head]->np[Tail] = NULL;
-        } else if (n->np[Tail]) { // at head
-          r->ht[Head] = n->np[Tail];
-          n->np[Tail]->np[Head] = NULL;
-        } else {                // single element
-          r->ht[Head] = NULL;
-          r->ht[Tail] = NULL;
-        }
-        n->np[Head] = NULL;     // finally free n
-        n->np[Tail] = NULL;
-        free(n);
-        r->len--;
-        return d;
+  
+  // These are used to set up the for loop because the actions whether starting at left or right are symmetric
+  // and we don't have to repeat them, we just have to do a little set up work for the loop.
+  Node nStart; 
+  int to;
+  if (e == Head) {
+    nStart = r->ht[Head];
+    to = Tail;
+  } else {
+    nStart = r->ht[Tail];
+    to = Head;
+  }
+
+  // Looping through the linked list
+  for (Node n=nStart; n; n=n->np[to]){
+    if (n->data == d){
+      if (n->np[Head] && n->np[Tail]) { // middle
+        n->np[Head]->np[Tail] = n->np[Tail];
+        n->np[Tail]->np[Head] = n->np[Head];
+      } else if (n->np[Head]) { // at tail
+        r->ht[Tail] = n->np[Head];
+        n->np[Head]->np[Tail] = NULL;
+      } else if (n->np[Tail]) { // at head
+        r->ht[Head] = n->np[Tail];
+        n->np[Tail]->np[Head] = NULL;
+      } else {                // single element
+        r->ht[Head] = NULL;
+        r->ht[Tail] = NULL;
       }
-    }
-  } else {                      // handle tail traversal
-    for (Node n=r->ht[Tail]; n; n=n->np[Head]){
-      if (n->data == d){
-        if (n->np[Head] && n->np[Tail]) { // in middle
-          n->np[Head]->np[Tail] = n->np[Tail];
-          n->np[Tail]->np[Head] = n->np[Head];
-        } else if (n->np[Head]) { // at tail
-          r->ht[Tail] = n->np[Head];
-          n->np[Head]->np[Tail] = NULL;
-        } else if (n->np[Tail]) { // at head
-          r->ht[Head] = n->np[Tail];
-          n->np[Tail]->np[Head] = NULL;
-        } else {                // single element
-          r->ht[Head] = NULL;
-          r->ht[Tail] = NULL;
-        }
-        n->np[Head] = NULL;
-        n->np[Tail] = NULL;
-        free(n);
-        r->len--;
-        return d;
-      }
+      n->np[Head] = NULL;     // finally free n
+      n->np[Tail] = NULL;
+      free(n);
+      r->len--;
+      return d;
     }
   }
   return 0;

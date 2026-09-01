@@ -279,8 +279,6 @@ int main() {
   deq_head_put(q2, "z");
   deq_tail_put(q2, "x");
   deq_tail_put(q2, "a");
-  printf(deq_head_ith(q2, 2)); // print y
-  printf(deq_tail_ith(q2, 2)); // print x
   printf("\n");
   deq_head_rem(q2, "a");
   deq_tail_rem(q2, "z");

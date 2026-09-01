@@ -264,6 +264,33 @@ int main() {
   // deq_tail_rem(q, "z");
 
 
+  // ------------------------------------------------------------------------------------
+
+
+  // // valgrind test --------------------------------
+
+  Deq q2 = deq_new();
+  deq_tail_put(q2, "z");
+  deq_tail_put(q2, "x");
+  deq_head_put(q2, "y");
+  deq_head_put(q2, "y");
+  deq_head_put(q2, "y");
+  deq_head_get(q2, "y");
+  deq_head_put(q2, "z");
+  deq_tail_put(q2, "x");
+  deq_tail_put(q2, "a");
+  printf(deq_head_ith(q2, 2)); // print y
+  printf(deq_tail_ith(q2, 2)); // print x
+  printf("\n");
+  deq_head_rem(q2, "a");
+  deq_tail_rem(q2, "z");
+  char *s=deq_str(q2,0);
+  printf("%s\n",s);
+  free(s);
+
+  deq_del(q2,0);
+
+  // // ---------------------------------------------------- 
 
 
 

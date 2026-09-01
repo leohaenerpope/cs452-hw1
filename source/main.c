@@ -275,7 +275,7 @@ int main() {
   deq_head_put(q2, "y");
   deq_head_put(q2, "y");
   deq_head_put(q2, "y");
-  deq_head_get(q2, "y");
+  deq_head_get(q2);
   deq_head_put(q2, "z");
   deq_tail_put(q2, "x");
   deq_tail_put(q2, "a");

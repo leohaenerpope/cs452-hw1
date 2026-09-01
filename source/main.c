@@ -284,9 +284,9 @@ int main() {
   printf("\n");
   deq_head_rem(q2, "a");
   deq_tail_rem(q2, "z");
-  char *s=deq_str(q2,0);
-  printf("%s\n",s);
-  free(s);
+  char *s2=deq_str(q2,0);
+  printf("%s\n",s2);
+  free(s2);
 
   deq_del(q2,0);
 
